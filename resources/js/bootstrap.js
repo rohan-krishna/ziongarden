@@ -39,3 +39,11 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+
+window.Waves = require('node-waves');
+
+import VueInstantSearch from 'vue-instantsearch';
+window.Vue = require('vue');
+Vue.use(VueInstantSearch);
+
