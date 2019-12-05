@@ -11490,3 +11490,7 @@ a.text-dark:focus {
   display: block;
 }
 
+.highlight-text {
+  background: yellow;
+}
+

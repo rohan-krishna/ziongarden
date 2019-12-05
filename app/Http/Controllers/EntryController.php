@@ -15,6 +15,32 @@ class EntryController extends Controller
     public function index()
     {
         //
+        $entries = Entry::paginate();
+        return view('entries.index', compact('entries'));
+    }
+
+
+    public function search(Request $request)
+    {
+        $message = "UID Search";
+        $entries = Entry::all();
+        # code...
+        if(!$request->filled('search_query')) {
+            return $entries;
+        }
+
+        if($request->entry_type == "uid") {
+
+            $entries = Entry::where("uid","like", $request->search_query."%")->get();
+            return $entries;
+        }
+
+        if($request->entry_type == "title") {
+            $entries = Entry::where("title", "like", "%".$request->search_query."%")->get();
+            return $entries;
+        }
+
+        return $entries;
     }
 
     /**
@@ -47,6 +73,7 @@ class EntryController extends Controller
     public function show(Entry $entry)
     {
         //
+        return view('entries.show', compact('entry'));
     }
 
     /**

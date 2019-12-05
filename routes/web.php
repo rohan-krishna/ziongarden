@@ -18,3 +18,13 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::prefix('entries')->middleware('auth')->group(function() {
+
+    Route::get('search','EntryController@search');
+    
+    Route::get('/','EntryController@index');
+    Route::get('/{entry}','EntryController@show');
+    Route::get('/{entry}/edit','EntryController@show');
+    
+});
