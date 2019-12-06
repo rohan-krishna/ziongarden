@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Entry;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EntryController extends Controller
 {
@@ -51,6 +52,7 @@ class EntryController extends Controller
     public function create()
     {
         //
+        return view('entries.create');
     }
 
     /**
@@ -62,6 +64,23 @@ class EntryController extends Controller
     public function store(Request $request)
     {
         //
+        DB::transaction(function() use($request) {
+
+            $entry = Entry::create(array_merge($request->except('files'), ['created_by' => auth()->user()->id]));
+    
+            if($request->hasFile('files')) {
+                // dd($request->files);
+                $files = $request->file('files');
+
+                foreach($files as $file) {
+                    $entry->addMedia($file)->toMediaCollection();
+                }
+            }
+
+        });
+        
+
+        // return $request->all();
     }
 
     /**

@@ -36,6 +36,8 @@
                 @endforeach
             </tbody>
         </table>
+
+        {{ $entries->links() }}
     </div>
 
 @stop

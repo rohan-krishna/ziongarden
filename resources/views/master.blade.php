@@ -13,12 +13,13 @@
     <script>
         var base_url = '{{ url("/") }}';
     </script>
-    <script src="{{ mix('js/app.js') }}" defer></script>
 
+    @stack('headerScripts')
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.1/css/lightbox.min.css">
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
@@ -79,6 +80,11 @@
         <main class="py-4">
             @yield('content')
         </main>
+
+        <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+        <script src="{{ mix('js/app.js') }}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.1/js/lightbox.min.js"></script>
+        @stack('footerScripts')
     </div>
 </body>
 </html>

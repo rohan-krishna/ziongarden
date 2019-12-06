@@ -21,10 +21,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::prefix('entries')->middleware('auth')->group(function() {
 
-    Route::get('search','EntryController@search');
-    
     Route::get('/','EntryController@index');
+    Route::get('create','EntryController@create');
+    Route::post('store','EntryController@store')->name('entries.store');
+    
+    Route::get('search','EntryController@search');
     Route::get('/{entry}','EntryController@show');
     Route::get('/{entry}/edit','EntryController@show');
-    
 });

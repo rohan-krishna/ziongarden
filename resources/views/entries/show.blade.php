@@ -27,12 +27,23 @@
             </div>
         </div>
 
-
+        @if($entry->getMedia()->count() > 0)
         <div class="row">
             <div class="col-md-12 mt-3">
-
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Attached Images: </h3>
+                        
+                        @foreach($entry->getMedia() as $media)
+                            <a href="{{ $media->getUrl() }}" data-lightbox="{{ $entry->title }}">
+                                <img src="{{ $media->getUrl() }}" alt="" class="lightbox-gallery-img shadow mr-3">
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
             </div>
         </div>
+        @endif
 
         <div class="row">
             <div class="col-md-12 mt-3 text-center">

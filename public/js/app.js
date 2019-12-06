@@ -80954,7 +80954,7 @@ var app = new Vue({
 
       var iQuery = new RegExp(this.search_query, "ig");
       return words.toString().replace(iQuery, function (matchedText) {
-        console.log("Matched Text: ".concat(matchedText));
+        // console.log(`Matched Text: ${matchedText}`)
         return '<span class="highlight-text">' + matchedText + '</span>';
       });
     }
