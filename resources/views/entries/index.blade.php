@@ -30,7 +30,7 @@
                         {{ $entry->title }}
                     </td>
                     <td>
-                        <a href="{{ url('entries/'. $entry->id.'/edit') }}" class="btn btn-info">Edit</a>
+                        <a href="{{ route('entries.edit', ['entry' => $entry->id]) }}" class="btn btn-info">Edit</a>
                     </td>
                 </tr>
                 @endforeach

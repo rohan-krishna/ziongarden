@@ -49,8 +49,8 @@
             <div class="col-md-12 mt-3 text-center">
                 <div class="card">
                     <div class="card-body">
-                        <a href="" class="btn btn-info">Edit</a>
-                        <a href="" class="btn btn-danger">Delete</a>
+                        <a href="{{ url('entries/edit/'.$entry->id) }}" class="btn btn-info">Edit</a>
+                        <a href="{{ url('entries/delete/'. $entry->id) }}" class="btn btn-danger">Delete</a>
                     </div>
                 </div>
             </div>

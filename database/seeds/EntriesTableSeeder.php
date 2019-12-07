@@ -13,6 +13,6 @@ class EntriesTableSeeder extends Seeder
     public function run()
     {
         //
-        factory(Entry::class, 50)->create();
+        factory(Entry::class, 500)->create();
     }
 }

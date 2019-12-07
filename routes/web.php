@@ -22,10 +22,16 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::prefix('entries')->middleware('auth')->group(function() {
 
     Route::get('/','EntryController@index');
+    
     Route::get('create','EntryController@create');
     Route::post('store','EntryController@store')->name('entries.store');
     
+    Route::get('/edit/{entry}','EntryController@edit')->name('entries.edit');
+    Route::post('/{entry}/update','EntryController@update')->name('entries.update');
+    
+    Route::get('delete/{entry}','EntryController@destroy');
+
     Route::get('search','EntryController@search');
     Route::get('/{entry}','EntryController@show');
-    Route::get('/{entry}/edit','EntryController@show');
+
 });

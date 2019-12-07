@@ -20,6 +20,8 @@ $(document).ready(function() {
 //     });
 // })
 
+Vue.component('InfiniteLoading', require('vue-infinite-loading'));
+
 const app = new Vue({
     el: '#swordfish',
     data: {
@@ -27,10 +29,21 @@ const app = new Vue({
         search_query: null,
         entries: [],
         loading: false,
+        page: 1,
+        last_page: 0,
+        current_page: 0,
+        total: 0,
+        base_url: base_url,
     },
     created() {
         // console.log(base_url)
         this.fetchEntries();
+    },
+    updated() {
+        console.log("Page", this.page);
+        console.log("Last Page", this.last_page);
+        console.log("Current Page", this.current_page);
+        console.log("Total", this.total);
     },
     methods: {
         submitQuery: function() {
@@ -42,13 +55,14 @@ const app = new Vue({
             
             this.loading = true;
 
-            let entry_type = this.entry_type;
-            let search_query = this.search_query;
-
-            return axios.get(base_url + "/entries/search", { params: { entry_type: this.entry_type, search_query: this.search_query }})
+            return axios.get(base_url + "/entries/search", { params: { entry_type: this.entry_type, search_query: this.search_query, page: this.page }})
                 .then((res) => {
                     this.loading = false;
-                    return this.entries = res.data;
+                    this.last_page = res.data.last_page;
+                    this.current_page = res.data.current_page;
+                    this.total = res.data.total;
+
+                    return this.entries = res.data.data; 
                 });
         },
         highlight: function(words) {
@@ -63,6 +77,20 @@ const app = new Vue({
                 // console.log(`Matched Text: ${matchedText}`)
                 return ('<span class="highlight-text">' + matchedText + '</span>');
             });
-        }
+        },
+        nextPage() {
+            while (this.current_page != this.last_page) {
+                this.page = this.page + 1;
+                this.fetchEntries();
+                break;
+            }
+        },
+        prevPage() {
+            while (this.current_page != 1) {
+                this.page = this.page - 1;
+                this.fetchEntries();
+                break;
+            }
+        },
     },
 });

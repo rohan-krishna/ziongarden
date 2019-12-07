@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Entry;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Spatie\MediaLibrary\Models\Media;
 
 class EntryController extends Controller
 {
@@ -23,8 +24,8 @@ class EntryController extends Controller
 
     public function search(Request $request)
     {
-        $message = "UID Search";
-        $entries = Entry::all();
+        // $message = "UID Search";
+        $entries = Entry::paginate(15);
         # code...
         if(!$request->filled('search_query')) {
             return $entries;
@@ -32,12 +33,12 @@ class EntryController extends Controller
 
         if($request->entry_type == "uid") {
 
-            $entries = Entry::where("uid","like", $request->search_query."%")->get();
+            $entries = Entry::where("uid","like", $request->search_query."%")->paginate(15);
             return $entries;
         }
 
         if($request->entry_type == "title") {
-            $entries = Entry::where("title", "like", "%".$request->search_query."%")->get();
+            $entries = Entry::where("title", "like", "%".$request->search_query."%")->paginate(15);
             return $entries;
         }
 
@@ -104,6 +105,7 @@ class EntryController extends Controller
     public function edit(Entry $entry)
     {
         //
+        return view('entries.edit',compact('entry'));
     }
 
     /**
@@ -116,6 +118,32 @@ class EntryController extends Controller
     public function update(Request $request, Entry $entry)
     {
         //
+        DB::transaction(function() use($request, $entry) {
+            
+            $entry->update(array_merge(['created_by' => auth()->user()->id], $request->except(['files','deletedMedia'])));
+
+            // update media, upload new files
+            if($request->hasFile('files')) {
+                // dd($request->files);
+                $files = $request->file('files');
+
+                foreach($files as $file) {
+                    $entry->addMedia($file)->toMediaCollection();
+                }
+            }
+
+            // update media, remove any existing records
+            if($request->filled('deletedMedia')) {
+
+                foreach(json_decode($request->deletedMedia) as $deletedMediaID) {
+                    $media = Media::find($deletedMediaID);
+                    $media->delete();
+                }
+            }
+
+        });
+
+        return redirect('entries/'.$entry->id);
     }
 
     /**
@@ -127,5 +155,8 @@ class EntryController extends Controller
     public function destroy(Entry $entry)
     {
         //
+        $entry->delete();
+
+        return redirect('entries');
     }
 }
