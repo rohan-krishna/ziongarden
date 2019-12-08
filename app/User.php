@@ -5,10 +5,12 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     use Notifiable;
+    use HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -36,4 +38,22 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function editRoute()
+    {
+        # code...
+        return route('users.edit', ['user' => $this->id]);
+    }
+
+    public function deleteRoute()
+    {
+        # code...
+        return url('users/delete/'.$this->id);
+    }
+
+    public function scopeSuper($query)
+    {
+        # code...
+        return $query->where("email", "!=", "rohan@bluehexagon.in");
+    }
 }

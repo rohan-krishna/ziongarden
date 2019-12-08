@@ -40,10 +40,10 @@ const app = new Vue({
         this.fetchEntries();
     },
     updated() {
-        console.log("Page", this.page);
-        console.log("Last Page", this.last_page);
-        console.log("Current Page", this.current_page);
-        console.log("Total", this.total);
+        // console.log("Page", this.page);
+        // console.log("Last Page", this.last_page);
+        // console.log("Current Page", this.current_page);
+        // console.log("Total", this.total);
     },
     methods: {
         submitQuery: function() {

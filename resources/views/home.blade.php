@@ -47,9 +47,9 @@
                     <div class="card mt-3">
                         <div class="card-body">
                             <div class="d-flex py-3 justify-content-center">
-                                <a :href="'/entries/' + entry.id"><h2 v-html="highlight(entry.uid)"></h2></a>
+                                <a :href="'/entries/' + entry.id"><h2 v-html="highlight(entry.uid)" style="text-transform: uppercase;"></h2></a>
                             </div>
-                            <h5 class="card-title text-center" v-html="highlight(entry.title)"></h5>
+                            <h5 class="card-title text-center" v-html="highlight(entry.title)" style="text-transform: capitalize;"></h5>
                         </div>
                     </div>
                 </div>

@@ -5,6 +5,9 @@
     <div class="container">
         <h1>Showing All Entries</h1>
 
+        <p>
+            <a href="{{ url('entries/create') }}" class="btn btn-success btn-waves">Create New Entry</a>
+        </p>
 
         <table class="table table-bordered">
             <thead>
@@ -22,11 +25,11 @@
                         {{ $loop->index+1 }}
                     </td>
                     <td>
-                        <a href="{{ $entry->path() }}">
+                        <a href="{{ $entry->path() }}" style="text-transform: uppercase;">
                             {{ $entry->uid }}
                         </a>
                     </td>
-                    <td>
+                    <td style="text-transform: capitalize;">
                         {{ $entry->title }}
                     </td>
                     <td>

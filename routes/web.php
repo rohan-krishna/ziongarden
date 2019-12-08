@@ -12,12 +12,15 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/home');
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('users','UserController');
+Route::get('users/delete/{user}','UserController@destroy');
 
 Route::prefix('entries')->middleware('auth')->group(function() {
 

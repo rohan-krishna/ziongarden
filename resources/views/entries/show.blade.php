@@ -3,8 +3,8 @@
 @section('content')
 
     <div class="container">
-        <h1 class="title">{{ $entry->title }}</h1>
-        <h4 class="text-muted">{{ $entry->uid }}</h4>
+        <h1 class="title" style="text-transform: capitalize;">{{ $entry->title }}</h1>
+        <h4 class="text-muted" style="text-transform: uppercase;">{{ $entry->uid }}</h4>
 
 
         <div class="row">
@@ -45,6 +45,7 @@
         </div>
         @endif
 
+        @hasanyrole('Administrator|Moderator')
         <div class="row">
             <div class="col-md-12 mt-3 text-center">
                 <div class="card">
@@ -55,6 +56,7 @@
                 </div>
             </div>
         </div>
+        @endhasanyrole
     </div>
 
 @stop

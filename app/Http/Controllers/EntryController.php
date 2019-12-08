@@ -81,7 +81,7 @@ class EntryController extends Controller
         });
         
 
-        // return $request->all();
+        return redirect('entries');
     }
 
     /**
