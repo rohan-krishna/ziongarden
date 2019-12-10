@@ -2,6 +2,8 @@
 
 @section('content')
 
+    @include('entries._addNoteModal')
+
     <div class="container">
         <h1 class="title" style="text-transform: capitalize;">{{ $entry->title }}</h1>
         <h4 class="text-muted" style="text-transform: uppercase;">{{ $entry->uid }}</h4>
@@ -22,6 +24,13 @@
                     <div class="card-body">
                         <h3>Additional Notes: </h3>
                         {{ $entry->additional_notes }}
+
+                        <div class="d-block pt-3">
+                            <button class="btn btn-info btn-waves" data-toggle="modal" data-target="#addNoteModal">Add/Update Notes</button>
+                        </div>
+
+                        @hasrole('Normal')
+                        @endhasrole
                     </div>
                 </div>
             </div>
@@ -36,7 +45,7 @@
                         
                         @foreach($entry->getMedia() as $media)
                             <a href="{{ $media->getUrl() }}" data-lightbox="{{ $entry->title }}">
-                                <img src="{{ $media->getUrl() }}" alt="" class="lightbox-gallery-img shadow mr-3">
+                                <img src="{{ $media->getUrl() }}" alt="" class="lightbox-gallery-img shadow mr-3 img-thumbnail">
                             </a>
                         @endforeach
                     </div>

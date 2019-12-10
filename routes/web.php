@@ -26,6 +26,8 @@ Route::prefix('entries')->middleware('auth')->group(function() {
 
     Route::get('/','EntryController@index');
     
+    Route::post('updateNote/{entry}','EntryController@updateNote')->name('updateNote');
+
     Route::get('create','EntryController@create');
     Route::post('store','EntryController@store')->name('entries.store');
     

@@ -146,6 +146,18 @@ class EntryController extends Controller
         return redirect('entries/'.$entry->id);
     }
 
+
+    public function updateNote(Request $request, Entry $entry)
+    {
+        # code...
+        DB::transaction(function() use($request, $entry) {
+            $entry->additional_notes = $request->additional_notes;
+            $entry->update();
+        });
+
+        return redirect()->back();
+    }
+
     /**
      * Remove the specified resource from storage.
      *

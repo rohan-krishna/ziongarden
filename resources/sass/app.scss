@@ -9,6 +9,13 @@
 
 @import '~node-waves/src/scss/waves.scss';
 
+@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans&display=swap');
+
+body {
+    font-family: "IBM Plex Sans", Helvetica, sans-serif;
+}
+
+
 .highlight-text {
     background: yellow;
 }
